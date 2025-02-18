@@ -20,12 +20,12 @@ void main() {
   group('PickImageUseCase', () {
     test('pick image success', () async {
       when(() => mockImagePickerRepository.pickImage()).thenAnswer(
-        (_) async => DataSuccess([XFile('path')]),
+        (_) async => DataStateSuccess([XFile('path')]),
       );
 
       final result = await pickImageUseCase.call(NoParams());
 
-      expect(result, isA<DataSuccess>());
+      expect(result, isA<DataStateSuccess>());
       expect(result.data![0].path, 'path');
 
       verify(() => mockImagePickerRepository.pickImage()).called(1);
@@ -33,12 +33,12 @@ void main() {
 
     test('pick image error', () async {
       when(() => mockImagePickerRepository.pickImage()).thenAnswer(
-        (_) async => DataError('error'),
+        (_) async => DataStateError('error'),
       );
 
       final result = await pickImageUseCase.call(NoParams());
 
-      expect(result, isA<DataError>());
+      expect(result, isA<DataStateError>());
       expect(result.error, 'error');
 
       verify(() => mockImagePickerRepository.pickImage()).called(1);

@@ -22,7 +22,7 @@ void main() {
           'hello',
           ['image1', 'image2'],
         ),
-      ).thenAnswer((_) async => DataSuccess('hello world'));
+      ).thenAnswer((_) async => DataStateSuccess('hello world'));
 
       final result = await sendChatWithImageUsecase.call(
         ChatWithImageParams(
@@ -31,7 +31,7 @@ void main() {
         ),
       );
       
-      expect(result, isA<DataSuccess<String>>());
+      expect(result, isA<DataStateSuccess<String>>());
       expect(result.data, 'hello world');
 
       verify(
@@ -48,7 +48,7 @@ void main() {
           'hello',
           ['image1', 'image2'],
         ),
-      ).thenAnswer((_) async => DataError('error'));
+      ).thenAnswer((_) async => DataStateError('error'));
 
       final result = await sendChatWithImageUsecase.call(
         ChatWithImageParams(
@@ -57,7 +57,7 @@ void main() {
         ),
       );
       
-      expect(result, isA<DataError<String>>());
+      expect(result, isA<DataStateError<String>>());
       expect(result.error, 'error');
 
       verify(

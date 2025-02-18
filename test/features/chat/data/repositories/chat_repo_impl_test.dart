@@ -24,7 +24,7 @@ void main() {
 
         final result = await chatRepository.sendMessage('hello');
 
-        expect(result, isA<DataSuccess<String>>());
+        expect(result, isA<DataStateSuccess<String>>());
         expect(result.data, 'hello world');
 
         verify(() => chatSource.sendMessage('hello')).called(1);
@@ -36,7 +36,7 @@ void main() {
 
         final result = await chatRepository.sendMessage('hello');
 
-        expect(result, isA<DataError<String>>());
+        expect(result, isA<DataStateError<String>>());
         expect(result.error, 'No Response from API');
 
         verify(() => chatSource.sendMessage('hello')).called(1);
@@ -54,7 +54,7 @@ void main() {
           ['image1', 'image2'],
         );
 
-        expect(result, isA<DataSuccess<String>>());
+        expect(result, isA<DataStateSuccess<String>>());
         expect(result.data, 'hello world');
 
         verify(
@@ -72,7 +72,7 @@ void main() {
           ['image1', 'image2'],
         );
 
-        expect(result, isA<DataError<String>>());
+        expect(result, isA<DataStateError<String>>());
         expect(result.error, 'No Response from API');
 
         verify(

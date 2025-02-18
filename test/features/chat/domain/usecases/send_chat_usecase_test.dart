@@ -18,11 +18,11 @@ void main() {
   group('SendChatUsecase', () {
     test('call success', () async {
       when(() => chatRepository.sendMessage('hello')).thenAnswer(
-        (_) async => DataSuccess('hello world'),
+        (_) async => DataStateSuccess('hello world'),
       );
 
       final result = await sendChatUsecase.call('hello');
-      expect(result, isA<DataSuccess>());
+      expect(result, isA<DataStateSuccess>());
       expect(result.data, 'hello world');
 
       verify(() => chatRepository.sendMessage('hello')).called(1);
@@ -30,12 +30,12 @@ void main() {
 
     test('call failure', () async {
       when(() => chatRepository.sendMessage('hello')).thenAnswer(
-        (_) async => DataError('No Response from API'),
+        (_) async => DataStateError('No Response from API'),
       );
 
       final result = await sendChatUsecase.call('hello');
 
-      expect(result, isA<DataError>());
+      expect(result, isA<DataStateError>());
       expect(result.error, 'No Response from API');
 
       verify(() => chatRepository.sendMessage('hello')).called(1);

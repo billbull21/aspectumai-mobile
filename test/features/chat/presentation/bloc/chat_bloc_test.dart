@@ -37,7 +37,7 @@ void main() {
         'send chat success with data',
         build: () {
           when(() => sendChatUsecase.call('hello')).thenAnswer(
-            (_) async => DataSuccess('hello world'),
+            (_) async => DataStateSuccess('hello world'),
           );
 
           return chatBloc;
@@ -101,7 +101,7 @@ void main() {
               imagePaths: const ['imagePath'],
             )),
           ).thenAnswer(
-            (_) async => DataSuccess('hello world'),
+            (_) async => DataStateSuccess('hello world'),
           );
 
           return chatBloc;

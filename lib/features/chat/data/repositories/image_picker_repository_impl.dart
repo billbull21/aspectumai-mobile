@@ -11,9 +11,9 @@ class ImagePickerRepositoryImpl implements ImagePickerRepository {
   Future<DataState<List<XFile>>> pickImage() async {
     try {
       final images = await imagePicker.pickMultiImage();
-      return DataSuccess(images);
+      return DataStateSuccess(images);
     } catch (e) {
-      return DataError(e.toString());
+      return DataStateError(e.toString());
     }
   }
 }

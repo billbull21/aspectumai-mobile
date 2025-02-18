@@ -19,7 +19,7 @@ class ImagePickerCubit extends Cubit<ImagePickerState> {
     try {
       final data = await _repo.call(NoParams());
 
-      if (data is DataSuccess) {
+      if (data is DataStateSuccess) {
         emit(state.copyWith(
           status: BlocStatus.loaded,
           imagePaths: data.data?.map((e) => e.path).toList(),

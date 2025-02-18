@@ -12,7 +12,7 @@ import 'package:aspectumai/features/auth/presentation/page/login/login_screen.da
     as _i4;
 import 'package:aspectumai/features/auth/presentation/page/register/register_screen.dart'
     as _i5;
-import 'package:aspectumai/features/chat/presentation/chat/chat_screen.dart'
+import 'package:aspectumai/features/chat/presentation/chat/page/chat_screen.dart'
     as _i2;
 import 'package:aspectumai/features/home/presentation/page/bottom_nav.dart'
     as _i1;

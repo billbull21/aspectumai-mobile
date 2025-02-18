@@ -26,7 +26,7 @@ void main() {
 
       final result = await imagePickerRepository.pickImage();
 
-      expect(result, isA<DataSuccess>());
+      expect(result, isA<DataStateSuccess>());
       expect(result.data![0].path, 'path');
 
       verify(() => mockImagePicker.pickMultiImage()).called(1);
@@ -37,7 +37,7 @@ void main() {
 
       final result = await imagePickerRepository.pickImage();
 
-      expect(result, isA<DataError>());
+      expect(result, isA<DataStateError>());
       expect(result.error, 'error');
 
       verify(() => mockImagePicker.pickMultiImage()).called(1);

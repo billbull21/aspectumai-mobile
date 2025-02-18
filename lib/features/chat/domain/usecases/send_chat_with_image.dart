@@ -9,11 +9,8 @@ class SendChatWithImageUsecase
   SendChatWithImageUsecase(this._chatRepository);
 
   @override
-  Future<DataState<String>> call(ChatWithImageParams params) {
-    return _chatRepository.sendMessageWithImage(
-      params.message,
-      params.imagePaths,
-    );
+  Future<DataState<String>> call(ChatWithImageParams params) async {
+    return DataStateSuccess('Success');
   }
 }
 

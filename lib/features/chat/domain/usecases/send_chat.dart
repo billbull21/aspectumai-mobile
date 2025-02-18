@@ -1,14 +1,15 @@
 import 'package:aspectumai/core/resources/data_state.dart';
 import 'package:aspectumai/core/usecase/usecase.dart';
+import 'package:aspectumai/features/chat/domain/entities/chat_response_entity.dart';
 import 'package:aspectumai/features/chat/domain/repositories/chat_repository.dart';
 
-class SendChatUsecase extends UseCase<DataState<String>, String> {
+class SendChatUsecase extends UseCase<DataState<ChatResponseEntity>, String> {
   final ChatRepository _chatRepository;
 
   SendChatUsecase(this._chatRepository);
 
   @override
-  Future<DataState<String>> call(String params) {
+  Future<DataState<ChatResponseEntity>> call(String params) {
     return _chatRepository.sendMessage(params);
   }
 }
