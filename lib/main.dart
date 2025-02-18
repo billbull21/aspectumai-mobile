@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:aspectumai/core/app_route.dart';
 import 'package:aspectumai/core/resources/colors.dart';
 import 'package:aspectumai/dependency_injection.dart';
-import 'package:aspectumai/features/chat/presentation/bloc/chat/chat_bloc.dart';
-import 'package:aspectumai/features/chat/presentation/bloc/image_picker/image_picker_cubit.dart';
+import 'package:aspectumai/features/chat/presentation/chat/bloc/chat/chat_bloc.dart';
+import 'package:aspectumai/features/chat/presentation/chat/bloc/image_picker/image_picker_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -8,52 +8,74 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i5;
 import 'package:aspectumai/features/auth/presentation/page/login/login_screen.dart'
-    as _i3;
-import 'package:aspectumai/features/auth/presentation/page/register/register_screen.dart'
     as _i4;
-import 'package:aspectumai/features/chat/presentation/chat_screen.dart'
+import 'package:aspectumai/features/auth/presentation/page/register/register_screen.dart'
+    as _i5;
+import 'package:aspectumai/features/chat/presentation/chat/chat_screen.dart'
+    as _i2;
+import 'package:aspectumai/features/home/presentation/page/bottom_nav.dart'
     as _i1;
 import 'package:aspectumai/features/home/presentation/page/home_screen.dart'
-    as _i2;
+    as _i3;
+import 'package:auto_route/auto_route.dart' as _i6;
 
-abstract class $AppRouter extends _i5.RootStackRouter {
+abstract class $AppRouter extends _i6.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i5.PageFactory> pagesMap = {
-    ChatRoute.name: (routeData) {
-      return _i5.AutoRoutePage<dynamic>(
+  final Map<String, _i6.PageFactory> pagesMap = {
+    BottomNav.name: (routeData) {
+      return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i1.ChatScreen(),
+        child: const _i1.BottomNav(),
+      );
+    },
+    ChatRoute.name: (routeData) {
+      return _i6.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i2.ChatScreen(),
       );
     },
     HomeRoute.name: (routeData) {
-      return _i5.AutoRoutePage<dynamic>(
+      return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.HomeScreen(),
+        child: const _i3.HomeScreen(),
       );
     },
     LoginRoute.name: (routeData) {
-      return _i5.AutoRoutePage<dynamic>(
+      return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.LoginScreen(),
+        child: const _i4.LoginScreen(),
       );
     },
     RegisterRoute.name: (routeData) {
-      return _i5.AutoRoutePage<dynamic>(
+      return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.RegisterScreen(),
+        child: const _i5.RegisterScreen(),
       );
     },
   };
 }
 
 /// generated route for
-/// [_i1.ChatScreen]
-class ChatRoute extends _i5.PageRouteInfo<void> {
-  const ChatRoute({List<_i5.PageRouteInfo>? children})
+/// [_i1.BottomNav]
+class BottomNav extends _i6.PageRouteInfo<void> {
+  const BottomNav({List<_i6.PageRouteInfo>? children})
+      : super(
+          BottomNav.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'BottomNav';
+
+  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i2.ChatScreen]
+class ChatRoute extends _i6.PageRouteInfo<void> {
+  const ChatRoute({List<_i6.PageRouteInfo>? children})
       : super(
           ChatRoute.name,
           initialChildren: children,
@@ -61,13 +83,13 @@ class ChatRoute extends _i5.PageRouteInfo<void> {
 
   static const String name = 'ChatRoute';
 
-  static const _i5.PageInfo<void> page = _i5.PageInfo<void>(name);
+  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i2.HomeScreen]
-class HomeRoute extends _i5.PageRouteInfo<void> {
-  const HomeRoute({List<_i5.PageRouteInfo>? children})
+/// [_i3.HomeScreen]
+class HomeRoute extends _i6.PageRouteInfo<void> {
+  const HomeRoute({List<_i6.PageRouteInfo>? children})
       : super(
           HomeRoute.name,
           initialChildren: children,
@@ -75,13 +97,13 @@ class HomeRoute extends _i5.PageRouteInfo<void> {
 
   static const String name = 'HomeRoute';
 
-  static const _i5.PageInfo<void> page = _i5.PageInfo<void>(name);
+  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i3.LoginScreen]
-class LoginRoute extends _i5.PageRouteInfo<void> {
-  const LoginRoute({List<_i5.PageRouteInfo>? children})
+/// [_i4.LoginScreen]
+class LoginRoute extends _i6.PageRouteInfo<void> {
+  const LoginRoute({List<_i6.PageRouteInfo>? children})
       : super(
           LoginRoute.name,
           initialChildren: children,
@@ -89,13 +111,13 @@ class LoginRoute extends _i5.PageRouteInfo<void> {
 
   static const String name = 'LoginRoute';
 
-  static const _i5.PageInfo<void> page = _i5.PageInfo<void>(name);
+  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i4.RegisterScreen]
-class RegisterRoute extends _i5.PageRouteInfo<void> {
-  const RegisterRoute({List<_i5.PageRouteInfo>? children})
+/// [_i5.RegisterScreen]
+class RegisterRoute extends _i6.PageRouteInfo<void> {
+  const RegisterRoute({List<_i6.PageRouteInfo>? children})
       : super(
           RegisterRoute.name,
           initialChildren: children,
@@ -103,5 +125,5 @@ class RegisterRoute extends _i5.PageRouteInfo<void> {
 
   static const String name = 'RegisterRoute';
 
-  static const _i5.PageInfo<void> page = _i5.PageInfo<void>(name);
+  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
 }

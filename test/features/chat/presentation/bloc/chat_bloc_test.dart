@@ -3,7 +3,7 @@ import 'package:aspectumai/core/resources/data_state.dart';
 import 'package:aspectumai/features/chat/data/models/chat_model.dart';
 import 'package:aspectumai/features/chat/domain/usecases/send_chat.dart';
 import 'package:aspectumai/features/chat/domain/usecases/send_chat_with_image.dart';
-import 'package:aspectumai/features/chat/presentation/bloc/chat/chat_bloc.dart';
+import 'package:aspectumai/features/chat/presentation/chat/bloc/chat/chat_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
