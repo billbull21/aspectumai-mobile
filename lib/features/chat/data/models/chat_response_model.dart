@@ -46,7 +46,6 @@ class ChatMessageModel extends ChatMessageEntity {
     return {
       'role': role,
       'content': content,
-      'refusal': refusal,
     };
   }
 

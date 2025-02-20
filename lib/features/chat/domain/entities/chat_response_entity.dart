@@ -21,13 +21,15 @@ class ChatMessageEntity extends Equatable {
   final String? role;
   final String? content;
   final String? refusal;
+  final bool? isLoading;
 
   const ChatMessageEntity({
     this.role,
     this.content,
     this.refusal,
+    this.isLoading,
   });
 
   @override
-  List<Object?> get props => [role, content, refusal];
+  List<Object?> get props => [role, content, refusal,isLoading];
 }

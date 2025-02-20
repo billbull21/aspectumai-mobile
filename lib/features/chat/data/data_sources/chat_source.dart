@@ -3,7 +3,7 @@ import 'package:aspectumai/features/chat/data/models/chat_response_model.dart';
 import 'package:dio/dio.dart';
 
 abstract class ChatSource {
-  Future<ChatResponseModel> sendMessage(String message);
+  Future<ChatResponseModel> sendMessage(List<ChatMessageModel> messages);
   // Future<String> sendMessageWithImage(String message, List<String> imagePaths);
 }
 
@@ -13,15 +13,12 @@ class ChatSourceImpl implements ChatSource {
   ChatSourceImpl(DioClient dioClient) : _dioClient = dioClient;
 
   @override
-  Future<ChatResponseModel> sendMessage(String message) async {
+  Future<ChatResponseModel> sendMessage(List<ChatMessageModel> messags) async {
     final response = await _dioClient.post(
       'https://api.openai.com/v1/chat/completions',
       data: {
         'model': 'gpt-4o-mini',
-        'messages': [
-          {'role': 'system', 'content': 'You are a helpful assistant.'},
-          {'role': 'user', 'content': message},
-        ],
+        'messages': messags.map((e) => e.toMap()).toList(),
       },
     );
 

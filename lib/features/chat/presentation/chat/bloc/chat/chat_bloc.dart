@@ -26,9 +26,7 @@ class ChatBloc extends Bloc<ChatBlocEvent, List<ChatMessageEntity>> {
     }
 
     /// add the new message from user
-    tempMessages.add(
-      ChatMessageEntity(content: newMessage, role: 'user'),
-    );
+    tempMessages.add(newMessage);
     emit([...tempMessages]);
 
     try {
@@ -38,7 +36,13 @@ class ChatBloc extends Bloc<ChatBlocEvent, List<ChatMessageEntity>> {
       );
       emit([...tempMessages]);
 
-      final response = await _sendChatUsecase.call(newMessage);
+      for (var element in tempMessages) {
+        print('newMessage: ${element.content}');
+      }
+
+      final response = await _sendChatUsecase.call(
+        tempMessages.where((element) => element.role != '').toList(),
+      );
 
       if (response is DataStateSuccess && response.data != null) {
         /// replace the loading indicator with the response
@@ -49,9 +53,9 @@ class ChatBloc extends Bloc<ChatBlocEvent, List<ChatMessageEntity>> {
         emit(tempMessages);
       } else {
         /// replace the loading indicator with a message indicating no response
-        tempMessages[tempMessages.length - 1] = const ChatMessageEntity(
-          content: 'No Response from API',
-          role: '',
+        tempMessages[tempMessages.length - 1] = ChatMessageEntity(
+          content: response.error,
+          role: 'assistant',
         );
 
         emit(tempMessages);
@@ -60,7 +64,7 @@ class ChatBloc extends Bloc<ChatBlocEvent, List<ChatMessageEntity>> {
       /// replace the loading indicator with an error message
       tempMessages[tempMessages.length - 1] = ChatMessageEntity(
         content: 'Error: $e',
-        role: '',
+        role: 'assistant',
       );
 
       emit(tempMessages);

@@ -8,7 +8,9 @@ import 'package:aspectumai/core/resources/colors.dart';
 import 'package:aspectumai/core/utils/extensions/context_ext.dart';
 import 'package:aspectumai/core/widgets/app_spacer.dart';
 import 'package:aspectumai/core/widgets/app_text_form.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/svg.dart';
 
 @RoutePage()
@@ -24,7 +26,7 @@ class ChatScreen extends StatelessWidget {
       child: Scaffold(
         bottomNavigationBar: Padding(
           padding: EdgeInsets.only(bottom: bottomInsets),
-          child: const _ChatInput(),
+          child: _ChatInput(),
         ),
         floatingActionButton:
             bottomInsets < 1 ? const _SuggestionStarters() : null,
@@ -169,7 +171,7 @@ class _AssistantMessage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(text, style: const TextStyle(color: Colors.white)),
+                Markdown(data: text,shrinkWrap: true),
                 const AppSpacer.height(8),
                 const Icon(Icons.copy, color: AppColors.grey, size: 14),
               ],
@@ -218,15 +220,15 @@ class _UserMessage extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  const AppSpacer.height(10),
-                  Container(
-                    width: context.screenWidth * 0.7,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      color: AppColors.grey,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
+                  // const AppSpacer.height(10),
+                  // Container(
+                  //   width: context.screenWidth * 0.7,
+                  //   height: 200,
+                  //   decoration: BoxDecoration(
+                  //     color: AppColors.grey,
+                  //     borderRadius: BorderRadius.circular(8),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -247,7 +249,7 @@ class _UserMessage extends StatelessWidget {
 }
 
 class _ChatInput extends StatelessWidget {
-  const _ChatInput();
+  final chatEdc = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -257,10 +259,26 @@ class _ChatInput extends StatelessWidget {
         left: 20,
       ),
       height: kBottomNavigationBarHeight,
-      child: const AppTextForm(
+      child: AppTextForm(
         hint: 'Ask anything..',
-        prefixIcon: Icon(Icons.add_photo_alternate, color: AppColors.white),
-        suffixIcon: Icon(Icons.send, color: AppColors.white),
+        prefixIcon:
+            const Icon(Icons.add_photo_alternate, color: AppColors.white),
+        suffixIcon: GestureDetector(
+          onTap: () {
+            context.read<ChatBloc>().add(
+                  StartChatEvent(
+                    message: ChatMessageEntity(
+                      content: chatEdc.text,
+                      role: 'user',
+                    ),
+                  ),
+                );
+            chatEdc.clear();
+            FocusNode().unfocus();
+          },
+          child: const Icon(Icons.send, color: AppColors.white),
+        ),
+        controller: chatEdc,
       ),
     );
   }
@@ -280,7 +298,8 @@ class _SuggestionStarters extends StatelessWidget {
           return Expanded(
             child: GestureDetector(
               onTap: () {
-                context.read<ChatBloc>().add(StartChatEvent(message: 'Hello!'));
+                // context.read<ChatBloc>().add(
+                //     StartChatEvent(message: ChatMessageEntity(content: '')));
               },
               child: Container(
                 margin: EdgeInsets.only(

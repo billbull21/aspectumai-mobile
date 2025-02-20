@@ -6,7 +6,7 @@ sealed class ChatBlocEvent extends Equatable {
 }
 
 class StartChatEvent extends ChatBlocEvent {
-  final String message;
+  final ChatMessageEntity message;
 
   StartChatEvent({required this.message});
 
