@@ -4,6 +4,7 @@ import 'package:aspectumai/core/app_route.dart';
 import 'package:aspectumai/core/resources/colors.dart';
 import 'package:aspectumai/dependency_injection.dart';
 import 'package:aspectumai/features/chat/presentation/chat/bloc/image_picker/image_picker_cubit.dart';
+import 'package:frosted_toast/frosted_toast.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,6 +45,11 @@ class MyApp extends StatelessWidget {
             bodyText2: TextStyle(color: Colors.white),
           ),
         ),
+        builder: (context, child) {
+          return FrostedToastOverlay(
+            child: child ?? const Scaffold(),
+          );
+        },
       ),
     );
   }

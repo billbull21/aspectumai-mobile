@@ -4,9 +4,9 @@ import 'package:dio/dio.dart';
 class DioClient {
   late Dio _dio;
 
-  DioClient({Dio? dio}) {
+  DioClient({Dio? dio, bool isUnittest = false}) {
     _dio = dio ?? Dio();
-    _dio.interceptors.add(DioInterceptor());
+    if (!isUnittest) _dio.interceptors.add(DioInterceptor());
   }
 
   Future<Response> get(

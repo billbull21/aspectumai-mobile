@@ -36,10 +36,6 @@ class ChatBloc extends Bloc<ChatBlocEvent, List<ChatMessageEntity>> {
       );
       emit([...tempMessages]);
 
-      for (var element in tempMessages) {
-        print('newMessage: ${element.content}');
-      }
-
       final response = await _sendChatUsecase.call(
         tempMessages.where((element) => element.role != '').toList(),
       );

@@ -13,6 +13,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/svg.dart';
 
+part '../widgets/chat_response.dart';
+part '../widgets/chat_input.dart';
+
 @RoutePage()
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -143,143 +146,6 @@ class _ChatBody extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class _AssistantMessage extends StatelessWidget {
-  final String text;
-  const _AssistantMessage({required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 24,
-            height: 24,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.red,
-            ),
-          ),
-          const AppSpacer.width(6),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Markdown(data: text,shrinkWrap: true),
-                const AppSpacer.height(8),
-                const Icon(Icons.copy, color: AppColors.grey, size: 14),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _UserMessage extends StatelessWidget {
-  final String text;
-  const _UserMessage({required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: SizedBox(
-        width: context.screenWidth,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: 8,
-                horizontal: 18,
-              ),
-              decoration: const BoxDecoration(
-                color: AppColors.secondary,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  bottomRight: Radius.circular(8),
-                  bottomLeft: Radius.circular(8),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    text,
-                    style: const TextStyle(
-                      color: AppColors.white,
-                      fontSize: 14,
-                    ),
-                  ),
-                  // const AppSpacer.height(10),
-                  // Container(
-                  //   width: context.screenWidth * 0.7,
-                  //   height: 200,
-                  //   decoration: BoxDecoration(
-                  //     color: AppColors.grey,
-                  //     borderRadius: BorderRadius.circular(8),
-                  //   ),
-                  // ),
-                ],
-              ),
-            ),
-            const AppSpacer.width(6),
-            Container(
-              width: 24,
-              height: 24,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.red,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _ChatInput extends StatelessWidget {
-  final chatEdc = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(
-        right: 20,
-        left: 20,
-      ),
-      height: kBottomNavigationBarHeight,
-      child: AppTextForm(
-        hint: 'Ask anything..',
-        prefixIcon:
-            const Icon(Icons.add_photo_alternate, color: AppColors.white),
-        suffixIcon: GestureDetector(
-          onTap: () {
-            context.read<ChatBloc>().add(
-                  StartChatEvent(
-                    message: ChatMessageEntity(
-                      content: chatEdc.text,
-                      role: 'user',
-                    ),
-                  ),
-                );
-            chatEdc.clear();
-            FocusNode().unfocus();
-          },
-          child: const Icon(Icons.send, color: AppColors.white),
-        ),
-        controller: chatEdc,
-      ),
     );
   }
 }
