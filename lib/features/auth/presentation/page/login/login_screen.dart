@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit(sl()),
+      create: (context) => LoginCubit(sl(), sl()),
       child: const _LoginScreenBody(),
     );
   }
@@ -37,6 +37,8 @@ class _LoginScreenBody extends StatefulWidget {
 class _LoginScreenBodyState extends State<_LoginScreenBody> {
   final emailEdc = TextEditingController();
   final passwordEdc = TextEditingController();
+
+  bool isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -150,6 +152,20 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                       type: AppTextFormType.outlined,
                       backgroundColor: AppColors.white,
                       controller: passwordEdc,
+                      obscureText: !isPasswordVisible,
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isPasswordVisible = !isPasswordVisible;
+                          });
+                        },
+                        child: Icon(
+                          isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: AppColors.darkGrey,
+                        ),
+                      ),
                     ),
                     const AppSpacer.height(16),
                     const Align(

@@ -1,4 +1,5 @@
 import 'package:aspectumai/core/network/dio_client.dart';
+import 'package:aspectumai/core/utils/shared_pref_utils.dart';
 import 'package:aspectumai/features/auth/data/data_sources/auth_source.dart';
 import 'package:aspectumai/features/auth/data/repositories/login_repository_impl.dart';
 import 'package:aspectumai/features/auth/domain/repositories/login_repository.dart';
@@ -13,6 +14,7 @@ import 'package:aspectumai/features/chat/presentation/chat/bloc/chat/chat_bloc.d
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'features/auth/presentation/bloc/auth/auth_cubit.dart';
 import 'features/auth/presentation/bloc/login/login_cubit.dart';
 import 'features/chat/data/repositories/image_picker_repository_impl.dart';
 import 'features/chat/domain/usecases/pick_image.dart';
@@ -26,6 +28,8 @@ Future<void> registerDependencies() async {
   sl.registerLazySingleton(() => imagePicker);
 
   sl.registerLazySingleton<DioClient>(() => DioClient());
+
+  sl.registerFactory(() => SharePrefUtils());
 
   _dataSource();
   _repositories();
@@ -64,5 +68,6 @@ void _bloc() {
   sl.registerFactory(() => ChatBloc(sl()));
 
   /* auth */
-  sl.registerFactory(() => LoginCubit(sl()));
+  sl.registerFactory(() => AuthCubit(sl()));
+  sl.registerFactory(() => LoginCubit(sl(), sl()));
 }

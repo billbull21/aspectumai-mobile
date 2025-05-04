@@ -12,6 +12,7 @@ class AppTextForm extends StatelessWidget {
   final String? label;
   final Color? backgroundColor;
   final AppTextFormType type;
+  final bool obscureText;
 
   const AppTextForm({
     super.key,
@@ -22,6 +23,7 @@ class AppTextForm extends StatelessWidget {
     this.label,
     this.backgroundColor,
     this.type = AppTextFormType.normal,
+    this.obscureText = false,
   });
 
   @override
@@ -52,6 +54,7 @@ class AppTextForm extends StatelessWidget {
               color: isDarkBackground ? AppColors.white : AppColors.black,
             ),
             controller: controller,
+            obscureText: obscureText,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 10,

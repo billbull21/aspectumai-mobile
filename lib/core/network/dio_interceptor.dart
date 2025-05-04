@@ -11,7 +11,7 @@ class DioInterceptor extends InterceptorsWrapper {
 
     if (responseData != null) {
       log('Error with response: $responseData');
-      final errors = responseData['errors'];
+      final errors = responseData?['errors'];
 
       String errorMessage = 'Unknown error occurred';
 

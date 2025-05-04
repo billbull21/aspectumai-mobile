@@ -6,6 +6,8 @@ import 'package:aspectumai/dependency_injection.dart';
 import 'package:aspectumai/features/chat/presentation/chat/bloc/image_picker/image_picker_cubit.dart';
 import 'package:frosted_toast/frosted_toast.dart';
 
+import 'features/auth/presentation/bloc/auth/auth_cubit.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await registerDependencies();
@@ -16,7 +18,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final appRoute = AppRouter();
+  final appRoute = AppRouter(sl<AuthCubit>());
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (_) => ImagePickerCubit(sl()),
+        ),
+        BlocProvider(
+          create: (_) => sl<AuthCubit>()..checkLogin(),
         ),
       ],
       child: MaterialApp.router(
