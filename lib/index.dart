@@ -1,11 +1,9 @@
-import 'package:aspectumai/features/auth/presentation/bloc/auth/auth_cubit.dart';
-import 'package:aspectumai/features/auth/presentation/page/login/login_screen.dart';
+import 'package:aspectumai/features/auth/bloc/auth/auth_cubit.dart';
+import 'package:aspectumai/features/auth/pages/login/login_screen.dart';
 import 'package:aspectumai/features/home/presentation/page/home_screen.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-@RoutePage()
 class IndexPage extends StatelessWidget {
   const IndexPage({super.key});
 

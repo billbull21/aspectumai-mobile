@@ -1,11 +1,9 @@
 import 'package:aspectumai/core/resources/colors.dart';
-import 'package:aspectumai/features/chat/presentation/history_chat/history_chat_screen.dart';
+import 'package:aspectumai/features/chat/pages/history_chat/history_chat_screen.dart';
 import 'package:aspectumai/features/home/presentation/page/home_screen.dart';
 import 'package:aspectumai/features/profile/presentation/page/profile_screen.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage()
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
 

@@ -1,6 +1,4 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:aspectumai/core/app_route.gr.dart';
 import 'package:aspectumai/core/resources/colors.dart';
 import 'package:aspectumai/core/widgets/app_spacer.dart';
 
@@ -17,11 +15,9 @@ class AgentsCardLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final router = context.router;
-
     return GestureDetector(
       onTap: () {
-        router.push(const ChatRoute());
+        // TODO: implement navigation
       },
       child: Container(
         height: 151,

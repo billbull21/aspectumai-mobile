@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:aspectumai/core/resources/colors.dart';
 import 'package:aspectumai/core/widgets/agent_cards/agent_card_large.dart';
@@ -9,7 +8,6 @@ import 'package:aspectumai/core/widgets/label.dart';
 import 'package:aspectumai/core/widgets/section_header.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-@RoutePage()
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
