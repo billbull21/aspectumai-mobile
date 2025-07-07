@@ -5,6 +5,7 @@ import 'package:aspectumai/core/utils/extensions/context_ext.dart';
 import 'package:aspectumai/core/widgets/app_button.dart';
 import 'package:aspectumai/core/widgets/app_spacer.dart';
 import 'package:aspectumai/core/widgets/app_text_form.dart';
+import 'package:go_router/go_router.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -48,7 +49,7 @@ class RegisterScreen extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              // TODO: implement navigation
+                              context.pop();
                             },
                             child: const Icon(
                               Icons.arrow_back_sharp,

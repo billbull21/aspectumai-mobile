@@ -1,3 +1,4 @@
+import 'package:aspectumai/core/app_route.dart';
 import 'package:aspectumai/core/widgets/snackbar.dart';
 import 'package:aspectumai/dependency_injection.dart';
 import 'package:aspectumai/features/auth/bloc/login/login_cubit.dart';
@@ -11,6 +12,7 @@ import 'package:aspectumai/core/widgets/app_spacer.dart';
 import 'package:aspectumai/core/widgets/app_text_form.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -99,7 +101,7 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                             const AppSpacer.height(12),
                             GestureDetector(
                               onTap: () {
-                                // TODO: implement navigation
+                                context.push(rRegister);
                               },
                               child: const Text.rich(
                                 TextSpan(
