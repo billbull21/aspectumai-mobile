@@ -1,6 +1,6 @@
 import 'package:aspectumai/core/resources/colors.dart';
 import 'package:aspectumai/features/chat/pages/history_chat/history_chat_screen.dart';
-import 'package:aspectumai/features/home/presentation/page/home_screen.dart';
+import 'package:aspectumai/features/home/page/home_screen.dart';
 import 'package:aspectumai/features/profile/presentation/page/profile_screen.dart';
 import 'package:flutter/material.dart';
 

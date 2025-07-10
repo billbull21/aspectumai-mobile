@@ -27,8 +27,8 @@ class ChatScreen extends StatelessWidget {
           padding: EdgeInsets.only(bottom: bottomInsets),
           child: _ChatInput(),
         ),
-        floatingActionButton:
-            bottomInsets < 1 ? const _SuggestionStarters() : null,
+        // floatingActionButton:
+        //     bottomInsets < 1 ? const _SuggestionStarters() : null,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         appBar: AppBar(
           backgroundColor: AppColors.primary,

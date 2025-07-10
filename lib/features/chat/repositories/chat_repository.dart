@@ -15,7 +15,7 @@ class ChatRepository implements IChatRepository {
   @override
   Future<ChatResponseModel> sendMessage(List<ChatMessageModel> messags) async {
     final response = await _dioClient.post(
-      'https://api.openai.com/v1/chat/completions',
+      'https://openrouter.ai/api/v1/chat/completions',
       data: {
         'model': 'gpt-4o-mini',
         'messages': messags.map((e) => e.toMap()).toList(),

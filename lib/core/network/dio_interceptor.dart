@@ -40,9 +40,10 @@ class DioInterceptor extends InterceptorsWrapper {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    // const aiKey = String.fromEnvironment('AI_KEY');
+    const aiKey = String.fromEnvironment('OPENROUTER');
+    print('AI Key: $aiKey');
     options.baseUrl = ApiConstants.baseUrl;
-    // options.headers['Authorization'] = 'Bearer $aiKey';
+    options.headers['Authorization'] = 'Bearer $aiKey';
 
     log('Request: ${options.method} ${options.path}');
 
