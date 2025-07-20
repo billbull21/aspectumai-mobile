@@ -40,12 +40,12 @@ class MyApp extends StatelessWidget {
             scrolledUnderElevation: 0,
           ),
           colorScheme: const ColorScheme.light(
-            background: Colors.white,
-            onBackground: Colors.white,
+            surface: Colors.white,
+            onSurface: Colors.white,
           ),
           textTheme: const TextTheme(
-            bodyText1: TextStyle(color: Colors.white),
-            bodyText2: TextStyle(color: Colors.white),
+            bodyLarge: TextStyle(color: Colors.white),
+            bodyMedium: TextStyle(color: Colors.white),
           ),
         ),
         builder: (context, child) {

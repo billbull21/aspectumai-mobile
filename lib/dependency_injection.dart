@@ -39,5 +39,5 @@ void _bloc() {
 
   /* auth */
   sl.registerFactory(() => AuthCubit(sl()));
-  sl.registerFactory(() => LoginCubit(sl(), sl()));
+  sl.registerFactory(() => LoginCubit(sl()));
 }

@@ -1,15 +1,16 @@
 import 'package:aspectumai/core/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:aspectumai/core/resources/colors.dart';
-import 'package:aspectumai/core/widgets/agent_cards/agent_card_large.dart';
-import 'package:aspectumai/core/widgets/agent_cards/agent_card_small.dart';
 import 'package:aspectumai/core/widgets/app_spacer.dart';
 import 'package:aspectumai/core/widgets/app_text_form.dart';
 import 'package:aspectumai/core/widgets/label.dart';
-import 'package:aspectumai/core/widgets/section_header.dart';
 import 'package:aspectumai/features/home/models/home_models.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../core/widgets/app_elevated_button_widget.dart';
+import '../../auth/bloc/auth/auth_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,69 +20,70 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AuthCubit>().checkLogin();
+  }
+
   // Data untuk carousel
   final List<CarouselItem> carouselItems = [
     CarouselItem(
       title: "Disney Master",
       category: "Creative & Art",
-      description:
-          "Lorem ipsum damet Lorem ipsum damet Lorem ipsum damet ipsum damet",
-      imageUrl:
-          "https://analyticsindiamag.com/wp-content/uploads/2020/08/432a6b258bfa7df163a88bed81255db6.jpg",
+      description: "Lorem ipsum damet Lorem ipsum damet Lorem ipsum damet ipsum damet",
+      imageUrl: "https://analyticsindiamag.com/wp-content/uploads/2020/08/432a6b258bfa7df163a88bed81255db6.jpg",
     ),
     CarouselItem(
       title: "Math Solver",
       category: "Education",
       description: "Advanced AI assistant for mathematical problem solving",
-      imageUrl:
-          "https://analyticsindiamag.com/wp-content/uploads/2020/08/432a6b258bfa7df163a88bed81255db6.jpg",
+      imageUrl: "https://analyticsindiamag.com/wp-content/uploads/2020/08/432a6b258bfa7df163a88bed81255db6.jpg",
     ),
     CarouselItem(
       title: "Code Assistant",
       category: "Programming",
-      description:
-          "Your personal coding companion for any programming language",
-      imageUrl:
-          "https://analyticsindiamag.com/wp-content/uploads/2020/08/432a6b258bfa7df163a88bed81255db6.jpg",
+      description: "Your personal coding companion for any programming language",
+      imageUrl: "https://analyticsindiamag.com/wp-content/uploads/2020/08/432a6b258bfa7df163a88bed81255db6.jpg",
     ),
   ];
 
+  // Data untuk action buttons
+  List<ActionButtonItem> get actionButtons => [
+        ActionButtonItem(
+          label: "Start New Chat",
+          icon: Icons.chat,
+          backgroundColor: const Color(0xFF4ECDC4),
+          isExpanded: true,
+          onTap: () {
+            context.push(rChat);
+          },
+        ),
+        ActionButtonItem(
+          icon: Icons.camera_alt_outlined,
+          backgroundColor: AppColors.secondary,
+          onTap: () {
+            // TODO: Open camera
+          },
+        ),
+        ActionButtonItem(
+          icon: Icons.headphones_outlined,
+          backgroundColor: AppColors.secondary,
+          onTap: () {
+            // TODO: Open audio input
+          },
+        ),
+        ActionButtonItem(
+          icon: Icons.mic_outlined,
+          backgroundColor: AppColors.secondary,
+          onTap: () {
+            // TODO: Open voice input
+          },
+        ),
+      ];
+
   @override
   Widget build(BuildContext context) {
-    // Data untuk action buttons
-    List<ActionButtonItem> actionButtons = [
-      ActionButtonItem(
-        label: "Start New Chat",
-        icon: Icons.chat,
-        backgroundColor: const Color(0xFF4ECDC4),
-        isExpanded: true,
-        onTap: () {
-          context.push(rChat);
-        },
-      ),
-      ActionButtonItem(
-        icon: Icons.camera_alt_outlined,
-        backgroundColor: AppColors.secondary,
-        onTap: () {
-          // TODO: Open camera
-        },
-      ),
-      ActionButtonItem(
-        icon: Icons.headphones_outlined,
-        backgroundColor: AppColors.secondary,
-        onTap: () {
-          // TODO: Open audio input
-        },
-      ),
-      ActionButtonItem(
-        icon: Icons.mic_outlined,
-        backgroundColor: AppColors.secondary,
-        onTap: () {
-          // TODO: Open voice input
-        },
-      ),
-    ];
-
     return Scaffold(
       backgroundColor: AppColors.primary,
       body: SingleChildScrollView(
@@ -90,30 +92,60 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             /// header
             const AppSpacer.height(kToolbarHeight),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  CircleAvatar(),
-                  AppSpacer.width(8),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Hi, Febry Ardiansyah",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white70,
+
+            /// badge profile
+            BlocBuilder<AuthCubit, AuthState>(
+              builder: (context, state) {
+                if (state is AuthenticatedState) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      children: [
+                        const CircleAvatar(),
+                        const AppSpacer.width(8),
+                        const Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Hi, Febry Ardiansyah",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white70,
+                                ),
+                              ),
+                              Text(
+                                "Let's see what can I do for you today?",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Text(
-                        "Let's see what can I do for you today?",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ],
+                        IconButton(
+                          icon: const Icon(Icons.logout, color: AppColors.secondary),
+                          onPressed: () {
+                            context.read<AuthCubit>().logout();
+                            context.push(rLogin);
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                }
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: AppElevatedButtonWidget(
+                    label: "Gabung Sekarang",
+                    icon: Icons.chat,
+                    backgroundColor: Colors.red,
+                    isExpanded: true,
+                    onTap: () {
+                      // context.read<AuthCubit>().checkLogin();
+                      context.push(rLogin);
+                    },
                   ),
-                ],
-              ),
+                );
+              },
             ),
             const AppSpacer.height(24),
             // const _SearchBar(),
@@ -148,25 +180,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: actionButtons.map((button) {
                   if (button.isExpanded) {
                     return Expanded(
-                      child: GestureDetector(
+                      child: AppElevatedButtonWidget(
+                        label: button.label,
+                        backgroundColor: button.backgroundColor,
                         onTap: button.onTap,
-                        child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: button.backgroundColor,
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: Center(
-                            child: Text(
-                              button.label ?? "",
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
+                        isExpanded: true,
                       ),
                     );
                   } else {
@@ -174,21 +192,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: EdgeInsets.only(
                         left: actionButtons.indexOf(button) == 1 ? 12 : 8,
                       ),
-                      child: GestureDetector(
+                      child: AppElevatedButtonWidget(
+                        icon: button.icon,
+                        backgroundColor: button.backgroundColor,
                         onTap: button.onTap,
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            color: button.backgroundColor,
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: Icon(
-                            button.icon,
-                            color: Colors.white,
-                            size: 24,
-                          ),
-                        ),
                       ),
                     );
                   }

@@ -35,4 +35,14 @@ class AuthCubit extends Cubit<AuthState> {
       emit(UnAuthenticatedState());
     }
   }
+  
+  void logout() async {
+    try {
+      await _sharePrefUtils.remove('token');
+      emit(UnAuthenticatedState());
+    } catch (e) {
+      emit(AuthenticatedState());
+    }
+  }
+
 }

@@ -16,4 +16,9 @@ class SharePrefUtils {
     final SharedPreferences prefs = await sharedPref;
     return prefs.getString(key);
   }
+
+  Future<bool> remove(String key) async {
+    final SharedPreferences prefs = await sharedPref;
+    return prefs.remove(key);
+  }
 }

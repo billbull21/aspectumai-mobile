@@ -14,13 +14,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../bloc/auth/auth_cubit.dart';
+
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit(sl(), sl()),
+      create: (context) => LoginCubit(sl()),
       child: const _LoginScreenBody(),
     );
   }
@@ -37,6 +39,8 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
   final emailEdc = TextEditingController();
   final passwordEdc = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>(); // <-- Add this
+
   bool isPasswordVisible = false;
 
   @override
@@ -51,8 +55,10 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
           if (state is LoginSuccess) {
             AppSnackbar.hide(context);
             AppSnackbar.showSuccess(context, message: 'Login Success');
-
-            // TODO: implement navigation
+            context.read<AuthCubit>().loggedIn(state.token);
+            
+            // redirect to home screen
+            context.go(rHome);
           }
           if (state is LoginFailure) {
             AppSnackbar.hide(context);
@@ -133,109 +139,130 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
               /// main form
               Padding(
                 padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    AppTextForm(
-                      label: 'Email',
-                      hint: 'Enter your email',
-                      type: AppTextFormType.outlined,
-                      backgroundColor: AppColors.white,
-                      controller: emailEdc,
-                    ),
-                    const AppSpacer.height(16),
-                    AppTextForm(
-                      label: 'Password',
-                      hint: 'Enter your password',
-                      type: AppTextFormType.outlined,
-                      backgroundColor: AppColors.white,
-                      controller: passwordEdc,
-                      obscureText: !isPasswordVisible,
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isPasswordVisible = !isPasswordVisible;
-                          });
+                child: Form( // <-- Wrap with Form
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      AppTextForm(
+                        label: 'Email',
+                        hint: 'Enter your email',
+                        type: AppTextFormType.outlined,
+                        backgroundColor: AppColors.white,
+                        controller: emailEdc,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Email is required';
+                          }
+                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                            return 'Enter a valid email';
+                          }
+                          return null;
                         },
-                        child: Icon(
-                          isPasswordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          color: AppColors.darkGrey,
+                      ),
+                      const AppSpacer.height(16),
+                      AppTextForm(
+                        label: 'Password',
+                        hint: 'Enter your password',
+                        type: AppTextFormType.outlined,
+                        backgroundColor: AppColors.white,
+                        controller: passwordEdc,
+                        obscureText: !isPasswordVisible,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Password is required';
+                          }
+                          if (value.length < 6) {
+                            return 'Password must be at least 6 characters';
+                          }
+                          return null;
+                        },
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isPasswordVisible = !isPasswordVisible;
+                            });
+                          },
+                          child: Icon(
+                            isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                            color: AppColors.darkGrey,
+                          ),
                         ),
                       ),
-                    ),
-                    const AppSpacer.height(16),
-                    const Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        'Forgot password?',
-                        style: TextStyle(
-                          color: AppColors.blue,
-                          fontWeight: FontWeight.w500,
+                      const AppSpacer.height(16),
+                      const Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          'Forgot password?',
+                          style: TextStyle(
+                            color: AppColors.blue,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
-                    ),
-                    const AppSpacer.height(32),
-                    AppButton(
-                      text: 'Log in',
-                      onPressed: () {
-                        context.read<LoginCubit>().login(
+                      const AppSpacer.height(32),
+                      AppButton(
+                        text: 'Log in',
+                        onPressed: () {
+                          if (_formKey.currentState?.validate() ?? false) {
+                            context.read<LoginCubit>().login(
                               emailEdc.text,
                               passwordEdc.text,
                             );
-                      },
-                      width: context.screenWidth,
-                    ),
-                    const AppSpacer.height(24),
-                    const Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            color: AppColors.stroke,
-                            thickness: 1,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            'Or login with',
-                            style: TextStyle(
-                              color: AppColors.darkGrey,
+                          }
+                        },
+                        width: context.screenWidth,
+                      ),
+                      const AppSpacer.height(24),
+                      const Row(
+                        children: [
+                          Expanded(
+                            child: Divider(
+                              color: AppColors.stroke,
+                              thickness: 1,
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            color: AppColors.stroke,
-                            thickness: 1,
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              'Or login with',
+                              style: TextStyle(
+                                color: AppColors.darkGrey,
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const AppSpacer.height(16),
-                    AppButton(
-                      onPressed: () {},
-                      width: context.screenWidth,
-                      type: AppButtonType.outlined,
-                      body: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            IllustrationConstants.google,
-                            width: 24,
-                            height: 24,
-                          ),
-                          const AppSpacer.width(10),
-                          const Text(
-                            'Google',
-                            style: TextStyle(
-                              color: AppColors.black,
+                          Expanded(
+                            child: Divider(
+                              color: AppColors.stroke,
+                              thickness: 1,
                             ),
                           ),
                         ],
                       ),
-                    )
-                  ],
+                      const AppSpacer.height(16),
+                      AppButton(
+                        onPressed: () {},
+                        width: context.screenWidth,
+                        type: AppButtonType.outlined,
+                        body: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              IllustrationConstants.google,
+                              width: 24,
+                              height: 24,
+                            ),
+                            const AppSpacer.width(10),
+                            const Text(
+                              'Google',
+                              style: TextStyle(
+                                color: AppColors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],

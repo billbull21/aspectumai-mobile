@@ -7,11 +7,9 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final IAuthRepository _authRepository;
-  final AuthCubit _authCubit;
 
-  LoginCubit(IAuthRepository authRepository, AuthCubit authCubit)
+  LoginCubit(IAuthRepository authRepository)
       : _authRepository = authRepository,
-        _authCubit = authCubit,
         super(LoginInitial());
 
   void login(String email, String password) async {
@@ -23,7 +21,6 @@ class LoginCubit extends Cubit<LoginState> {
         password,
       );
 
-      _authCubit.loggedIn(result.token!);
       emit(LoginSuccess(token: result.token!));
     } catch (e) {
       emit(LoginFailure(e.toString()));

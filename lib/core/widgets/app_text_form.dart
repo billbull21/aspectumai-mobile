@@ -13,6 +13,7 @@ class AppTextForm extends StatelessWidget {
   final Color? backgroundColor;
   final AppTextFormType type;
   final bool obscureText;
+  final FormFieldValidator<String>? validator; // <-- Add this
 
   const AppTextForm({
     super.key,
@@ -24,6 +25,7 @@ class AppTextForm extends StatelessWidget {
     this.backgroundColor,
     this.type = AppTextFormType.normal,
     this.obscureText = false,
+    this.validator, // <-- Add this
   });
 
   @override
@@ -55,6 +57,7 @@ class AppTextForm extends StatelessWidget {
             ),
             controller: controller,
             obscureText: obscureText,
+            validator: validator, // <-- Add this
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 10,
