@@ -1,4 +1,3 @@
-import 'package:aspectumai/features/auth/bloc/auth/auth_cubit.dart';
 import 'package:aspectumai/features/auth/repositories/auth_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';

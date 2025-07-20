@@ -1,9 +1,6 @@
-const APIKEY = String.fromEnvironment('GEMINI_API_KEY');
-const GEMINI_ICON = 'assets/gemini-icon.png';
-
 enum BlocStatus { initial, loading, loaded, error }
 
 class ApiConstants {
-  static const String baseUrl = 'http://128.199.85.105:5050/api/v1';
+  static const String baseUrl = 'http://128.199.85.105:5050/api/v1/';
   static const String jwtKey = 'jwt';
 }

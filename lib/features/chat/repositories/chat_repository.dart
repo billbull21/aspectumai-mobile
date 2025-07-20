@@ -4,11 +4,13 @@ import 'package:dio/dio.dart';
 
 abstract class IChatRepository {
   Future<ChatResponseModel> sendMessage(List<ChatMessageModel> messages);
+  Future<void> createChatSession();
   // Future<String> sendMessageWithImage(String message, List<String> imagePaths);
 }
 
 class ChatRepository implements IChatRepository {
   final DioClient _dioClient;
+  final String _path = 'chat';
 
   ChatRepository(DioClient dioClient) : _dioClient = dioClient;
 
@@ -31,5 +33,10 @@ class ChatRepository implements IChatRepository {
         message: response.data.toString(),
       );
     }
+  }
+
+  @override
+  Future<void> createChatSession() async {
+    await _dioClient.post('$_path/session/new');
   }
 }
