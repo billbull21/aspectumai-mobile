@@ -22,7 +22,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         password,
       );
 
-      emit(RegisterSuccess());
+      emit(RegisterSuccess(result));
     } catch (e) {
       emit(RegisterFailure(e.toString()));
     }

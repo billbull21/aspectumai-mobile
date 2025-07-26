@@ -26,7 +26,7 @@ class AppRouter {
         ),
         GoRoute(
           path: rOtp,
-          builder: (context, state) => const OtpScreen(),
+          builder: (context, state) => OtpScreen(email: state.extra as String),
         ),
         GoRoute(
           path: rForgotPassword,

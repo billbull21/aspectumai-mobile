@@ -10,7 +10,6 @@ import 'package:go_router/go_router.dart';
 import 'package:aspectumai/features/auth/bloc/register/register_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/app_route.dart';
 import '../../../../core/widgets/snackbar.dart';
 import '../../../../dependency_injection.dart';
 
@@ -55,10 +54,10 @@ class _RegisterScreenBodyState extends State<_RegisterScreenBody> {
           }
           if (state is RegisterSuccess) {
             AppSnackbar.hide(context);
-            AppSnackbar.showSuccess(context, message: 'Register Success');
+            AppSnackbar.showSuccess(context, message: state.message);
 
             // redirect to OTP
-            context.go(rOtp);
+            context.go(rOtp,extra: emailController.text);
           }
           if (state is RegisterFailure) {
             AppSnackbar.hide(context);

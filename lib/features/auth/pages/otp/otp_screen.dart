@@ -9,27 +9,28 @@ import 'package:aspectumai/core/widgets/app_spacer.dart';
 import 'package:go_router/go_router.dart';
 
 class OtpScreen extends StatelessWidget {
-  const OtpScreen({super.key});
+  final String email;
+  const OtpScreen({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
-    return const _OtpScreenBody();
+    return _OtpScreenBody(email: email);
   }
 }
 
 class _OtpScreenBody extends StatefulWidget {
-  const _OtpScreenBody();
+  final String email;
+  const _OtpScreenBody({required this.email});
 
   @override
   State<_OtpScreenBody> createState() => _OtpScreenBodyState();
 }
 
 class _OtpScreenBodyState extends State<_OtpScreenBody> {
-  final List<TextEditingController> _otpControllers = 
+  final List<TextEditingController> _otpControllers =
       List.generate(6, (index) => TextEditingController());
-  final List<FocusNode> _focusNodes = 
-      List.generate(6, (index) => FocusNode());
-  
+  final List<FocusNode> _focusNodes = List.generate(6, (index) => FocusNode());
+
   Timer? _timer;
   int _countdown = 300; // 5 minutes in seconds
   bool _canResend = false;
@@ -177,12 +178,25 @@ class _OtpScreenBodyState extends State<_OtpScreenBody> {
                             ),
                           ),
                           const AppSpacer.height(12),
-                          const Text(
-                            'Enter the 6-digit code sent to your email',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12,
-                              color: AppColors.white,
+                          Text.rich(
+                            TextSpan(
+                              text:
+                                  'Enter the 6-digit code sent to your email ',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12,
+                                color: AppColors.white,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: '\n${widget.email}',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: AppColors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -200,7 +214,7 @@ class _OtpScreenBodyState extends State<_OtpScreenBody> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const AppSpacer.height(32),
-                  
+
                   /// OTP Input Fields
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -284,7 +298,9 @@ class _OtpScreenBodyState extends State<_OtpScreenBody> {
                           style: TextStyle(
                             color: _canResend ? AppColors.blue : AppColors.grey,
                             fontWeight: FontWeight.w500,
-                            decoration: _canResend ? TextDecoration.underline : TextDecoration.none,
+                            decoration: _canResend
+                                ? TextDecoration.underline
+                                : TextDecoration.none,
                           ),
                         ),
                       ),
@@ -304,11 +320,14 @@ class _OtpScreenBodyState extends State<_OtpScreenBody> {
 
                   /// Timer Text
                   Text(
-                    _canResend ? 'Code expired' : 'Code expires in $_formattedTime',
+                    _canResend
+                        ? 'Code expired'
+                        : 'Code expires in $_formattedTime',
                     style: TextStyle(
                       color: _canResend ? AppColors.primary : AppColors.grey,
                       fontSize: 12,
-                      fontWeight: _canResend ? FontWeight.w500 : FontWeight.normal,
+                      fontWeight:
+                          _canResend ? FontWeight.w500 : FontWeight.normal,
                     ),
                   ),
                 ],

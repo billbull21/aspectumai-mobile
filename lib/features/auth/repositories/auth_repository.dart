@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 
 abstract class IAuthRepository {
   Future<LoginResponseModel> login(String email, String password);
-  Future<LoginResponseModel> register(String fullname, String username, String email, String password);
+  Future<String> register(String fullname, String username, String email, String password);
   Future<String> emailVerification({
     required String email,
     required EmailVerificationType type,
@@ -37,7 +37,7 @@ class AuthRepository implements IAuthRepository {
   }
   
   @override
-  Future<LoginResponseModel> register(String fullname, String username, String email, String password) async {
+  Future<String> register(String fullname, String username, String email, String password) async {
     try {
       final response = await _client.post(
         '/auth/sign-up',
@@ -50,7 +50,9 @@ class AuthRepository implements IAuthRepository {
         },
       );
 
-      return LoginResponseModel.fromJson(response.data['data']);
+      final data = MetaModel.fromJson(response.data['meta']);
+
+      return data.message ?? '';
     } on DioException catch (e) {
       throw e.error.toString();
     }
