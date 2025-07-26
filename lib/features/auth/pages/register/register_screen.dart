@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:aspectumai/core/app_route.dart';
 import 'package:aspectumai/core/resources/colors.dart';
 import 'package:aspectumai/core/resources/images.dart';
 import 'package:aspectumai/core/utils/extensions/context_ext.dart';
@@ -67,7 +68,7 @@ class RegisterScreen extends StatelessWidget {
                           const AppSpacer.height(12),
                           GestureDetector(
                             onTap: () {
-                              // TODO: implement navigation
+                              context.push(rLogin);
                             },
                             child: const Text.rich(
                               TextSpan(
@@ -128,7 +129,10 @@ class RegisterScreen extends StatelessWidget {
                   const AppSpacer.height(32),
                   AppButton(
                     text: 'Register',
-                    onPressed: () {},
+                    onPressed: () {
+                      // Navigate to OTP screen after registration
+                      context.push(rOtp);
+                    },
                     width: context.screenWidth,
                   ),
                 ],
