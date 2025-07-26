@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../features/auth/pages/login/login_screen.dart';
 import '../features/auth/pages/register/register_screen.dart';
 import '../features/auth/pages/otp/otp_screen.dart';
+import '../features/auth/pages/forgot_password/forgot_password_screen.dart';
 import '../features/chat/pages/chat/chat_screen.dart';
 import '../features/home/page/home_screen.dart';
 
@@ -28,8 +29,12 @@ class AppRouter {
           builder: (context, state) => const OtpScreen(),
         ),
         GoRoute(
+          path: rForgotPassword,
+          builder: (context, state) => const ForgotPasswordScreen(),
+        ),
+        GoRoute(
           path: rHome,
-          builder: (context, state) => const HomeScreen(),
+          builder: (context, state) => HomeScreen(),
         ),
         GoRoute(
           path: rChat,
@@ -44,5 +49,6 @@ String get rSplash => '/';
 String get rLogin => '/login';
 String get rRegister => '/register';
 String get rOtp => '/otp';
+String get rForgotPassword => '/forgot-password';
 String get rHome => '/home';
 String get rChat => '/chat';

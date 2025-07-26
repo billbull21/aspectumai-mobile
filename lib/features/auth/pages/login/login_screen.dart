@@ -192,13 +192,18 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                         ),
                       ),
                       const AppSpacer.height(16),
-                      const Align(
+                      Align(
                         alignment: Alignment.centerRight,
-                        child: Text(
-                          'Forgot password?',
-                          style: TextStyle(
-                            color: AppColors.blue,
-                            fontWeight: FontWeight.w500,
+                        child: GestureDetector(
+                          onTap: () {
+                            context.push(rForgotPassword);
+                          },
+                          child: const Text(
+                            'Forgot password?',
+                            style: TextStyle(
+                              color: AppColors.blue,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ),
