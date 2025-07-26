@@ -1,5 +1,6 @@
 import 'package:aspectumai/core/network/dio_client.dart';
 import 'package:aspectumai/core/utils/shared_pref_utils.dart';
+import 'package:aspectumai/features/auth/bloc/email_verification/email_verification_cubit.dart';
 import 'package:aspectumai/features/auth/repositories/auth_repository.dart';
 import 'package:aspectumai/features/chat/repositories/chat_repository.dart';
 import 'package:aspectumai/features/chat/bloc/chat/chat_bloc.dart';
@@ -41,6 +42,7 @@ void _bloc() {
   /* auth */
   sl.registerFactory(() => AuthCubit(sl()));
   sl.registerFactory(() => LoginCubit(sl()));
+  sl.registerFactory(() => EmailVerificationCubit(sl()));
 
   /* create chat session */
   sl.registerFactory(() => CreateChatSessionCubit(sl()));

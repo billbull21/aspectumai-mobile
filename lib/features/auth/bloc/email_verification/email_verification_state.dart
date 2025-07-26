@@ -1,19 +1,19 @@
-part of 'create_chat_session_cubit.dart';
+part of 'email_verification_cubit.dart';
 
-final class CreateChatSessionState extends AppBlocBaseState {
-  const CreateChatSessionState({
+final class EmailVerificationState extends AppBlocBaseState {
+  const EmailVerificationState({
     super.type,
     super.data,
     super.errorMessage,
   });
 
   @override
-  CreateChatSessionState copyWith({
+  EmailVerificationState copyWith({
     AppBlocBaseStateType? type,
     data,
     String? errorMessage,
   }) {
-    return CreateChatSessionState(
+    return EmailVerificationState(
       type: type ?? this.type,
       data: data ?? this.data,
       errorMessage: errorMessage ?? this.errorMessage,
