@@ -49,54 +49,51 @@ class AppTextForm extends StatelessWidget {
           ),
           const AppSpacer.height(4),
         ],
-        SizedBox(
-          height: 48,
-          child: TextFormField(
-            style: TextStyle(
-              color: isDarkBackground ? AppColors.white : AppColors.black,
+        TextFormField(
+          style: TextStyle(
+            color: isDarkBackground ? AppColors.white : AppColors.black,
+          ),
+          controller: controller,
+          obscureText: obscureText,
+          validator: validator, // <-- Add this
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 8,
             ),
-            controller: controller,
-            obscureText: obscureText,
-            validator: validator, // <-- Add this
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 8,
-              ),
-              // isDense: true,
-              filled: true,
-              fillColor: currentBackgroundColor,
-              prefixIcon: prefixIcon,
-              suffixIcon: suffixIcon,
-              hintText: hint,
-              hintStyle: const TextStyle(color: AppColors.grey, fontSize: 14),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: isOutlined
-                    ? const BorderSide(
-                        color: AppColors.stroke,
-                        width: 1,
-                      )
-                    : BorderSide.none,
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: isOutlined
-                    ? const BorderSide(
-                        color: AppColors.stroke,
-                        width: 1,
-                      )
-                    : BorderSide.none,
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: isOutlined
-                    ? const BorderSide(
-                        color: AppColors.secondary,
-                        width: 1,
-                      )
-                    : BorderSide.none,
-              ),
+            // isDense: true,
+            filled: true,
+            fillColor: currentBackgroundColor,
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
+            hintText: hint,
+            hintStyle: const TextStyle(color: AppColors.grey, fontSize: 14),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: isOutlined
+                  ? const BorderSide(
+                      color: AppColors.stroke,
+                      width: 1,
+                    )
+                  : BorderSide.none,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: isOutlined
+                  ? const BorderSide(
+                      color: AppColors.stroke,
+                      width: 1,
+                    )
+                  : BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: isOutlined
+                  ? const BorderSide(
+                      color: AppColors.secondary,
+                      width: 1,
+                    )
+                  : BorderSide.none,
             ),
           ),
         ),
