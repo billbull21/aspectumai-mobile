@@ -1,4 +1,9 @@
 import 'package:aspectumai/core/app_route.dart';
+import 'package:aspectumai/core/widgets/app_elevated_button_widget.dart';
+import 'package:aspectumai/core/widgets/snackbar.dart';
+import 'package:aspectumai/dependency_injection.dart';
+import 'package:aspectumai/features/auth/bloc/auth/auth_cubit.dart';
+import 'package:aspectumai/features/chat/bloc/create_chat_session/create_chat_session_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:aspectumai/core/resources/colors.dart';
 import 'package:aspectumai/core/widgets/app_spacer.dart';
@@ -9,42 +14,50 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/widgets/app_elevated_button_widget.dart';
-import '../../auth/bloc/auth/auth_cubit.dart';
-
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => CreateChatSessionCubit(sl()),
+      child: const HomeBody(),
+    );
+  }
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<AuthCubit>().checkLogin();
-  }
+class HomeBody extends StatefulWidget {
+  const HomeBody({super.key});
 
+  @override
+  State<HomeBody> createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<HomeBody> {
   // Data untuk carousel
   final List<CarouselItem> carouselItems = [
     CarouselItem(
       title: "Disney Master",
       category: "Creative & Art",
-      description: "Lorem ipsum damet Lorem ipsum damet Lorem ipsum damet ipsum damet",
-      imageUrl: "https://analyticsindiamag.com/wp-content/uploads/2020/08/432a6b258bfa7df163a88bed81255db6.jpg",
+      description:
+          "Lorem ipsum damet Lorem ipsum damet Lorem ipsum damet ipsum damet",
+      imageUrl:
+          "https://analyticsindiamag.com/wp-content/uploads/2020/08/432a6b258bfa7df163a88bed81255db6.jpg",
     ),
     CarouselItem(
       title: "Math Solver",
       category: "Education",
       description: "Advanced AI assistant for mathematical problem solving",
-      imageUrl: "https://analyticsindiamag.com/wp-content/uploads/2020/08/432a6b258bfa7df163a88bed81255db6.jpg",
+      imageUrl:
+          "https://analyticsindiamag.com/wp-content/uploads/2020/08/432a6b258bfa7df163a88bed81255db6.jpg",
     ),
     CarouselItem(
       title: "Code Assistant",
       category: "Programming",
-      description: "Your personal coding companion for any programming language",
-      imageUrl: "https://analyticsindiamag.com/wp-content/uploads/2020/08/432a6b258bfa7df163a88bed81255db6.jpg",
+      description:
+          "Your personal coding companion for any programming language",
+      imageUrl:
+          "https://analyticsindiamag.com/wp-content/uploads/2020/08/432a6b258bfa7df163a88bed81255db6.jpg",
     ),
   ];
 
@@ -122,7 +135,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.logout, color: AppColors.secondary),
+                          icon: const Icon(Icons.logout,
+                              color: AppColors.secondary),
                           onPressed: () {
                             context.read<AuthCubit>().logout();
                             context.push(rLogin);

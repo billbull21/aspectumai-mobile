@@ -36,6 +36,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: AppColors.primary,
           scaffoldBackgroundColor: AppColors.primary,
+          dialogTheme: const DialogTheme(
+            surfaceTintColor: AppColors.white,
+          ),
           appBarTheme: const AppBarTheme(
             scrolledUnderElevation: 0,
           ),

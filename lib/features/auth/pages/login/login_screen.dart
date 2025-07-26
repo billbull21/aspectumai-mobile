@@ -1,4 +1,5 @@
 import 'package:aspectumai/core/app_route.dart';
+import 'package:aspectumai/core/utils/dialog_utils.dart';
 import 'package:aspectumai/core/widgets/snackbar.dart';
 import 'package:aspectumai/dependency_injection.dart';
 import 'package:aspectumai/features/auth/bloc/login/login_cubit.dart';
@@ -50,18 +51,18 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginLoading) {
-            AppSnackbar.showLoading(context);
+            DialogUtils.showLoadingDialog(context);
           }
           if (state is LoginSuccess) {
-            AppSnackbar.hide(context);
+            context.pop(); // Close the loading dialog
             AppSnackbar.showSuccess(context, message: 'Login Success');
             context.read<AuthCubit>().loggedIn(state.token);
-            
+
             // redirect to home screen
             context.go(rHome);
           }
           if (state is LoginFailure) {
-            AppSnackbar.hide(context);
+            context.pop(); // Close the loading dialog
             AppSnackbar.showError(context, message: state.error);
           }
         },
@@ -139,7 +140,7 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
               /// main form
               Padding(
                 padding: const EdgeInsets.all(20),
-                child: Form( // <-- Wrap with Form
+                child: Form(
                   key: _formKey,
                   child: Column(
                     children: [
@@ -183,19 +184,26 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                             });
                           },
                           child: Icon(
-                            isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                            isPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                             color: AppColors.darkGrey,
                           ),
                         ),
                       ),
                       const AppSpacer.height(16),
-                      const Align(
+                      Align(
                         alignment: Alignment.centerRight,
-                        child: Text(
-                          'Forgot password?',
-                          style: TextStyle(
-                            color: AppColors.blue,
-                            fontWeight: FontWeight.w500,
+                        child: GestureDetector(
+                          onTap: () {
+                            context.push(rForgotPassword);
+                          },
+                          child: const Text(
+                            'Forgot password?',
+                            style: TextStyle(
+                              color: AppColors.blue,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ),

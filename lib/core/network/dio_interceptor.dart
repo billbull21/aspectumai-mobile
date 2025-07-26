@@ -17,7 +17,7 @@ class DioInterceptor extends InterceptorsWrapper {
         );
         return;
       }
-      
+
       final errors = responseData?['errors'];
 
       String errorMessage = 'Unknown error occurred';
@@ -40,10 +40,9 @@ class DioInterceptor extends InterceptorsWrapper {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    const aiKey = String.fromEnvironment('OPENROUTER');
-    print('AI Key: $aiKey');
     options.baseUrl = ApiConstants.baseUrl;
-    options.headers['Authorization'] = 'Bearer $aiKey';
+    options.headers['Authorization'] =
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZlYnJ5QGdtYWlsLmNvbSIsImlhdCI6MTc1MzAxMjA5OH0.E-CL78q3Bx4DoIssVRIRq_Yt30sNYGrrAd6DpJV0hiA';
 
     log('Request: ${options.method} ${options.path}');
 

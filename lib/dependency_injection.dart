@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'features/auth/bloc/auth/auth_cubit.dart';
 import 'features/auth/bloc/login/login_cubit.dart';
 import 'core/bloc/image_picker/image_picker_cubit.dart';
+import 'features/chat/bloc/create_chat_session/create_chat_session_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -40,4 +41,7 @@ void _bloc() {
   /* auth */
   sl.registerFactory(() => AuthCubit(sl()));
   sl.registerFactory(() => LoginCubit(sl()));
+
+  /* create chat session */
+  sl.registerFactory(() => CreateChatSessionCubit(sl()));
 }
