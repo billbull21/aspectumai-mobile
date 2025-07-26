@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 
 abstract class IAuthRepository {
   Future<LoginResponseModel> login(String email, String password);
+  Future<LoginResponseModel> register(String fullname, String username, String email, String password);
   Future<void> logout();
 }
 
@@ -20,6 +21,26 @@ class AuthRepository implements IAuthRepository {
         data: {
           'email': email,
           'password': password,
+        },
+      );
+
+      return LoginResponseModel.fromJson(response.data['data']);
+    } on DioException catch (e) {
+      throw e.error.toString();
+    }
+  }
+  
+  @override
+  Future<LoginResponseModel> register(String fullname, String username, String email, String password) async {
+    try {
+      final response = await _client.post(
+        '/auth/sign-up',
+        data: {
+          "name": fullname,
+          "last_name": "",
+          "username": username,
+          "email": email,
+          "password": password,
         },
       );
 

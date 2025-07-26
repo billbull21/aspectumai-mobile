@@ -23,6 +23,10 @@ class AppRouter {
           builder: (context, state) => const RegisterScreen(),
         ),
         GoRoute(
+          path: rOtp,
+          builder: (context, state) => const RegisterScreen(),
+        ),
+        GoRoute(
           path: rHome,
           builder: (context, state) => const HomeScreen(),
         ),
@@ -38,5 +42,6 @@ class AppRouter {
 String get rSplash => '/';
 String get rLogin => '/login';
 String get rRegister => '/register';
+String get rOtp => '/otp';
 String get rHome => '/home';
 String get rChat => '/chat';
